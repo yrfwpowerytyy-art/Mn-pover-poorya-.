@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
+import {Audio, AbsoluteFill, interpolate, staticFile, useCurrentFrame} from 'remotion';
 
 const W = 1920;
 const H = 1080;
@@ -134,7 +134,7 @@ const SuppliesScene: React.FC<{frame: number}> = ({frame}) => {
     {name:'BATTERIES',color:'#c7cbd0',x:420,h:145},
     {name:'FLASHLIGHT',color:'#e5c45e',x:630,h:185},
   ];
-  return <AbsoluteFill style={{opacity:sceneOpacity(frame,1080,1350),background:'radial-gradient(ellipse at 50% 35%,#536c78,#182b3a 72%)',overflow:'hidden'}}>
+  return <AbsoluteFill style={{opacity:sceneOpacity(frame,1080,2044),background:'radial-gradient(ellipse at 50% 35%,#536c78,#182b3a 72%)',overflow:'hidden'}}>
     <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(7,18,29,.1),rgba(4,12,20,.65))'}}/>
     <div style={{position:'absolute',left:'50%',top:560,width:1120,height:380,transform:`translateX(-50%) translateY(${rise}px) rotateX(58deg) rotateZ(${rotate}deg)`,background:'linear-gradient(145deg,#647780,#1c303d)',border:'14px solid #9baeb5',borderRadius:55,boxShadow:'0 50px 90px rgba(0,0,0,.6)'}}/>
     <div style={{position:'absolute',left:'50%',top:490,display:'flex',gap:32,transform:`translate(-50%,${rise}px)`}}>
@@ -147,7 +147,7 @@ const SuppliesScene: React.FC<{frame: number}> = ({frame}) => {
       <div style={{fontSize:48,fontWeight:900,marginTop:12}}>10,000,000</div>
       <div style={{fontSize:17,marginTop:10,color:'#f5d38b'}}>Spend carefully</div>
     </div>
-    <Label left={105} top={75}><Eyebrow>SMART SHOPPING · LIMITED BUDGET</Eyebrow><div style={{fontSize:58,fontWeight:900,marginTop:16}}>Essentials first.</div></Label>
+    <Label left={105} top={75}><Eyebrow>SMART SHOPPING · LIMITED BUDGET</Eyebrow><div style={{fontSize:58,fontWeight:900,marginTop:16}}>{frame < 1350 ? 'Essentials first.' : frame < 1575 ? 'Water is next.' : frame < 1800 ? 'Keep the home warm.' : 'Spend wisely.'}</div><div style={{fontSize:26,marginTop:12,opacity:.88}}>{frame < 1350 ? 'Food, water, light, and power.' : frame < 1575 ? 'Store enough drinking water.' : frame < 1800 ? 'Prepare a safe way to stay warm.' : 'A limited budget. Critical choices.'}</div></Label>
     <div style={{position:'absolute',left:105,bottom:70,...panel,fontSize:23,letterSpacing:3,opacity:.9}}>FOOD  /  WATER  /  LIGHT  /  POWER</div>
   </AbsoluteFill>;
 };
@@ -159,9 +159,9 @@ export const ColdEarth: React.FC = () => {
     <ThermometerScene frame={frame}/>
     <CityScene frame={frame}/>
     <StoreScene frame={frame}/>
-    <SuppliesScene frame={frame}/>
+    <SuppliesScene frame={frame}/>\n    <Audio src={staticFile('audio/narration.mp3')} />
     <div style={{position:'absolute',left:0,right:0,bottom:0,height:5,background:'rgba(255,255,255,.16)',zIndex:50}}>
-      <div style={{height:'100%',width:`${Math.min(100,frame/1350*100)}%`,background:'#8bdcf2',boxShadow:'0 0 18px #8bdcf2'}}/>
+      <div style={{height:'100%',width:`${Math.min(100,frame/2044*100)}%`,background:'#8bdcf2',boxShadow:'0 0 18px #8bdcf2'}}/>
     </div>
   </AbsoluteFill>;
 };
