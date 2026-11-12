@@ -1,4 +1,3 @@
-
 {
   "name": "mn-pover-poorya",
   "version": "1.0.0",
@@ -6,7 +5,8 @@
   "type": "module",
   "scripts": {
     "render": "remotion render src/index.ts ColdEarth out/cold-earth.mp4",
-    "studio": "remotion studio src/index.ts"
+    "studio": "remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",
