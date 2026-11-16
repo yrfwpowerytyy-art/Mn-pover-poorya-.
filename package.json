@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "render": "remotion render src/index.ts ColdEarth out/cold-earth.mp4",
+    "render-population": "remotion render src/index.ts PopulationRanking out/population-ranking.mp4",
     "studio": "remotion studio src/index.ts",
     "typecheck": "tsc --noEmit"
   },
