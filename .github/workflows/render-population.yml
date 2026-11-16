@@ -25,6 +25,8 @@ jobs:
         run: npm run typecheck
       - name: Install Remotion browser
         run: npx remotion browser ensure
+      - name: Unpack video and sound assets
+        run: unzip -o public/population-remotion-assets.zip -d /tmp/population-assets && cp /tmp/population-assets/remotion-assets/public/* public/
       - name: Verify source media
         run: test -f public/population-source.mp4 && test -f public/wind-swoosh.mp3
       - name: Render
