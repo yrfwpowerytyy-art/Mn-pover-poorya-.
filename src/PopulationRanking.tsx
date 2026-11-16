@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Video, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Video, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 
 const FPS = 30;
 const clamp = {extrapolateLeft: 'clamp' as const, extrapolateRight: 'clamp' as const};
@@ -85,7 +85,7 @@ export const PopulationRanking: React.FC = () => {
     <div dir="rtl" style={{fontSize:27,fontWeight:800,lineHeight:1.65,textAlign:'center',whiteSpace:'pre-line',color:'#f3ffff',textShadow:'0 1px 12px rgba(0,255,220,.22)'}}>{cue.t}</div>
    </Glass>
   </div>}
-  {sectionStarts.map((s,i)=><Audio key={i} src={staticFile('wind-swoosh.mp3')} startFrom={0} volume={.26} startAt={0} endAt={42} />)}
+  {sectionStarts.map((s,i)=><Sequence key={i} from={Math.round(s*FPS)} durationInFrames={42}><Audio src={staticFile('wind-swoosh.mp3')} startFrom={0} volume={.26} /></Sequence>)}
   <div style={{position:'absolute',bottom:24,left:28,right:28,display:'flex',justifyContent:'space-between',alignItems:'center',fontSize:11,color:'rgba(160,255,230,.68)',letterSpacing:2,direction:'ltr'}}>
    <span>GLOBAL AGE • INDEX</span><span>01 — 05</span>
   </div>
