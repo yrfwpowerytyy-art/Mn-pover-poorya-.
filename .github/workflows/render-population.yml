@@ -17,19 +17,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install Persian fonts
-        run: sudo apt-get update && sudo apt-get install -y fonts-noto-core
+      - name: Install Persian fonts and FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-core ffmpeg
+      - name: Download original source video from GitHub Release
+        run: |
+          curl -fL --retry 3 \
+            "https://github.com/yrfwpowerytyy-art/Mn-pover-poorya-./releases/download/source-video-v1/output_1794805367_u173651.mp4" \
+            -o public/population-source.mp4
+      - name: Create cinematic wind swoosh SFX
+        run: |
+          ffmpeg -y -f lavfi -i "anoisesrc=color=pink:sample_rate=44100:duration=1.4" \
+            -af "lowpass=f=900,highpass=f=120,volume=0.16,afade=t=in:st=0:d=0.18,afade=t=out:st=0.65:d=0.75" \
+            -codec:a libmp3lame -b:a 128k public/wind-swoosh.mp3
       - name: Install dependencies
         run: npm install
       - name: TypeScript check
         run: npm run typecheck
       - name: Install Remotion browser
         run: npx remotion browser ensure
-      - name: Unpack video and sound assets
-        run: unzip -o public/population-remotion-assets.zip -d /tmp/population-assets && cp /tmp/population-assets/remotion-assets/public/* public/
       - name: Verify source media
-        run: test -f public/population-source.mp4 && test -f public/wind-swoosh.mp3
-      - name: Render
+        run: test -s public/population-source.mp4 && test -s public/wind-swoosh.mp3
+      - name: Render vertical 720x1280 video
         run: npm run render-population
       - name: Upload rendered video
         uses: actions/upload-artifact@v4
