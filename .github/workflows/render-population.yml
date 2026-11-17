@@ -25,7 +25,7 @@ jobs:
       - name: Download the NEW raw source video
         run: |
           curl -fL --retry 3 \
-            "https://github.com/yrfwpowerytyy-art/Mn-pover-poorya-./releases/download/source-video-v1/population-source-v2.mp4" \
+            "https://github.com/yrfwpowerytyy-art/Mn-pover-poorya-./releases/download/source-video-v1/output_1794805367_u173651.mp4" \
             -o public/population-source-v2.mp4
           test -s public/population-source-v2.mp4
       - name: Create wind and subtle ding sound effects
